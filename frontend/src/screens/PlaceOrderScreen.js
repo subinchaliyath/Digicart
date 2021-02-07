@@ -36,7 +36,7 @@ export const PlaceOrderScreen = ({ history }) => {
   
   
   const orderCreate=useSelector(state=>state.orderCreate)
-  const {success,error,order}=orderCreate
+  const {success,error}=orderCreate
   const placeHolderHandler = () => {
     let order = {
       orderItems: cart.cartItems,
