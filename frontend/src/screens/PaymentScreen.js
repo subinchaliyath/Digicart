@@ -37,14 +37,14 @@ export const PaymentScreen = ({ history }) => {
           checked
           onChange={e=>setPaymentMethod(e.target.value)}
           ></Form.Check>
-          <Form.Check
+          {/* <Form.Check
           type='radio'
           label='Paytm'
           id='paytm'
           name='paymentMethod2'
           value='Paytm'
           onChange={e=>setPaymentMethod(e.target.value)}
-          ></Form.Check>
+          ></Form.Check> */}
         </Col>
         </Form.Group>
 
