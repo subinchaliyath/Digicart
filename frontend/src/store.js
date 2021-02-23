@@ -11,10 +11,11 @@ import {
   userLoginReducer,
   userRegisterReducer,
   userDetailsReducer,
-  userUpdateProfileReducer
+  userUpdateProfileReducer,
+  userListReducer
 } from "./reducers/userReducers";
-
-const reducer = combineReducers({
+import { USER_LOGOUT } from "./constants/userConstants";
+const appReducer = combineReducers({
   productList: productListReducer,
   productDetails: productDeatailsReducer,
   cart: cartReducer,
@@ -26,7 +27,14 @@ const reducer = combineReducers({
   orderDetails:orderDetailReducer,
   orderPay: orderPayReducer,
   orderListMy: orderListMyReducer,
+  userList:userListReducer
 });
+const reducer = (state, action) => {
+  if (action.type === USER_LOGOUT) {
+    state = undefined
+  }
+  return appReducer(state, action)
+}
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems"))

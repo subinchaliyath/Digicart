@@ -24,5 +24,12 @@ const protect = expressAsyncHandler(async (req, res, next) => {
     throw new Error("Not authorized, no token");
   }
 });
-
-module.exports = protect;
+const admin = expressAsyncHandler(async (req, res, next) => {
+  if(req.user && req.user.isAdmin){
+    next()
+  }
+  else{
+    throw new Error('No admin access')
+  }
+})
+module.exports = {protect,admin};

@@ -54,7 +54,7 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 // @desc Get user profile
-// @route GET /api/user/profile
+// @route GET /api/users/profile
 // @access Private
 const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
@@ -68,6 +68,18 @@ const getUserProfile = asyncHandler(async (req, res) => {
   } else {
     res.status(404);
     throw new Error("user not found");
+  }
+});
+// @desc Get all user
+// @route GET /api/users
+// @access Private & Admin
+const getAllUser = asyncHandler(async (req, res) => {
+  const users = await User.find({}).select("-password");
+  if (users) {
+    res.json(users);
+  } else {
+    res.status(404);
+    throw new Error("users not found");
   }
 });
 
@@ -96,4 +108,4 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { authUser, getUserProfile, registerUser,updateUserProfile };
+module.exports = { authUser, getUserProfile, registerUser,updateUserProfile,getAllUser };
