@@ -12,7 +12,9 @@ import {
   userRegisterReducer,
   userDetailsReducer,
   userUpdateProfileReducer,
-  userListReducer
+  userListReducer,
+  userDeleteReducer,
+  AdminUpdateReducer
 } from "./reducers/userReducers";
 import { USER_LOGOUT } from "./constants/userConstants";
 const appReducer = combineReducers({
@@ -27,7 +29,9 @@ const appReducer = combineReducers({
   orderDetails:orderDetailReducer,
   orderPay: orderPayReducer,
   orderListMy: orderListMyReducer,
-  userList:userListReducer
+  userList:userListReducer,
+  userDelete:userDeleteReducer,
+  AdminUpdate:AdminUpdateReducer
 });
 const reducer = (state, action) => {
   if (action.type === USER_LOGOUT) {

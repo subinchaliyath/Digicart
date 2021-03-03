@@ -1,30 +1,37 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect,useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Table, Button } from "react-bootstrap";
-
+import { Table, Button , Modal} from "react-bootstrap";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { getAllUsers } from "../actions/userActions";
+import { getAllUsers ,deleteUser} from "../actions/userActions";
   
 
 const UserList = ({history}) => {
     const dispatch=useDispatch();
     const userList=useSelector(state=>state.userList)
     const {loading,error,users}=userList
+
     const userLogin=useSelector(state=>state.userLogin)
     const {userInfo}=userLogin
+
+    const userDelete=useSelector(state=>state.userDelete)
+    const {success:successDelete}=userDelete
     useEffect(()=>{
         if(userInfo && userInfo.isAdmin){
             dispatch(getAllUsers())
         }else{
             history.push('/login')
         }
-    },[dispatch,history])
+    },[dispatch,history,userInfo,successDelete ])
     const deleteHandler=(id)=>{
-        console.log("delete")
+            dispatch(deleteUser(id))
+            handleClose()
     }
+    const [showModal, setShow] = useState(false);
+    const [uid, setID] = useState('');
+     const handleClose = () => setShow(false);
+   const handleShow = (id) => {setShow(true);setID(id) };
     return (
         <>
         <h1>Users</h1>
@@ -54,12 +61,12 @@ const UserList = ({history}) => {
                                  )}
                              </td>
                              <td>
-                                 <LinkContainer to={`/user/${user._id}/edit`}>
+                                 <LinkContainer to={`/admin/user/${user._id}/edit`}>
                                      <Button variant='light' className='btn-sm'>
                                          <i className='fas fa-edit'></i>
                                      </Button>
                                  </LinkContainer>
-                                 <Button variant='danger' className='btn-sm' onClick={()=>deleteHandler(user._id)}>
+                                 <Button variant='danger' className='btn-sm' onClick={()=>handleShow(user._id)}>
                                          <i className='fas fa-trash'></i>
                                      </Button>
                              </td>
@@ -71,6 +78,16 @@ const UserList = ({history}) => {
 
          </Table>   
         )}
+         <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={()=>deleteHandler(uid)}>Confirm</Button>
+          <Button variant="secondary" onClick={handleClose}>Close</Button>
+        </Modal.Footer>
+      </Modal>
         </>
     )
 }
