@@ -19,6 +19,9 @@ export const OrderScreen = ({ match }) => {
   const orderPay = useSelector((state) => state.orderPay)
   const { loading: loadingPay, success: successPay } = orderPay
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -156,7 +159,7 @@ export const OrderScreen = ({ match }) => {
                 </Row>
               </ListGroup.Item>
 
-                {!order.isPaid && (
+                {!order.isPaid && !userInfo.isAdmin && ( 
                 <ListGroup.Item>
                   {loadingPay && <Loader />}
                   {!sdkReady ? (

@@ -4,9 +4,18 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import {
   productListReducer,
   productDeatailsReducer,
+  productDeleteReducer,
+  productCreateReducer,
+  productUpdateReducer
 } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
-import { orderCreateReducer,orderDetailReducer,orderPayReducer,orderListMyReducer } from "./reducers/orderReducers";
+import {
+  orderCreateReducer,
+  orderDetailReducer,
+  orderPayReducer,
+  orderListMyReducer,
+  orderListReducer
+} from "./reducers/orderReducers";
 import {
   userLoginReducer,
   userRegisterReducer,
@@ -14,7 +23,7 @@ import {
   userUpdateProfileReducer,
   userListReducer,
   userDeleteReducer,
-  AdminUpdateReducer
+  AdminUpdateReducer,
 } from "./reducers/userReducers";
 import { USER_LOGOUT } from "./constants/userConstants";
 const appReducer = combineReducers({
@@ -23,22 +32,26 @@ const appReducer = combineReducers({
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
-  userDetails:userDetailsReducer,
-  userUpdate:userUpdateProfileReducer,
-  orderCreate:orderCreateReducer,
-  orderDetails:orderDetailReducer,
+  userDetails: userDetailsReducer,
+  userUpdate: userUpdateProfileReducer,
+  orderCreate: orderCreateReducer,
+  orderDetails: orderDetailReducer,
   orderPay: orderPayReducer,
   orderListMy: orderListMyReducer,
-  userList:userListReducer,
-  userDelete:userDeleteReducer,
-  AdminUpdate:AdminUpdateReducer
+  orderList:orderListReducer,
+  userList: userListReducer,
+  userDelete: userDeleteReducer,
+  AdminUpdate: AdminUpdateReducer,
+  productDelete: productDeleteReducer,
+  productCreate: productCreateReducer,
+  productUpdate: productUpdateReducer,
 });
 const reducer = (state, action) => {
   if (action.type === USER_LOGOUT) {
-    state = undefined
+    state = undefined;
   }
-  return appReducer(state, action)
-}
+  return appReducer(state, action);
+};
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems"))
@@ -56,10 +69,9 @@ const shippingAddressFromStorage = localStorage.getItem("shippingAddress")
 const initialState = {
   cart: {
     cartItems: cartItemsFromStorage,
-    shippingAddress:shippingAddressFromStorage
+    shippingAddress: shippingAddressFromStorage,
   },
   userLogin: { userInfo: userInfoFromStorage },
-
 };
 const middleware = [thunk];
 const store = createStore(
