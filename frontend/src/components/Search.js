@@ -22,7 +22,7 @@ export const Search = ({history}) => {
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
       ></Form.Control>
-      <Button type="submit" variant="outline-success" className='p-2'>
+      <Button type="submit" variant="outline-success" className='p-2 mt-sm-1'>
         Search
       </Button>
     </Form>
