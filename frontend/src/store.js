@@ -7,7 +7,8 @@ import {
   productDeleteReducer,
   productCreateReducer,
   productUpdateReducer,
-  productReviewReducer
+  productReviewReducer,
+  productTopReducer
 } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
 import {
@@ -46,7 +47,8 @@ const appReducer = combineReducers({
   productDelete: productDeleteReducer,
   productCreate: productCreateReducer,
   productUpdate: productUpdateReducer,
-  productReview:productReviewReducer
+  productReview:productReviewReducer,
+  productTop:productTopReducer
 });
 const reducer = (state, action) => {
   if (action.type === USER_LOGOUT) {

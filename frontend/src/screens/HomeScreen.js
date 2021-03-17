@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import ProductCarousel from "../components/ProductCarousel";
 import { Paginator } from "../components/Paginator";
 import { Product } from "../components/Product";
 
@@ -21,6 +22,7 @@ export const HomeScreen = ({match}) => {
 
   return (
     <>
+      <ProductCarousel/>
       <h1>Latest Products</h1>
       {loading ? (
         <Loader/>
