@@ -6,7 +6,7 @@ const Product = require("../Model/productModel");
 // @route GET /api/product
 // @access Public
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = 2;
+  const pageSize = 8;
   const pageNumber= Number(req.query.pageNumber) || 1
 
   const keyword = req.query.keyword
