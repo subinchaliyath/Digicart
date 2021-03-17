@@ -22,7 +22,7 @@ export const HomeScreen = ({match}) => {
 
   return (
     <>
-      <ProductCarousel/>
+      {!keyword && <ProductCarousel/>}
       <h1>Latest Products</h1>
       {loading ? (
         <Loader/>
